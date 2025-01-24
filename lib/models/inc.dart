@@ -5,15 +5,15 @@ class Inc {
   Inc({
     required this.id,
     required this.title,
-    // required this.category,
     required this.amount,
+    required this.tag,
     required this.income,
   });
 
   final int id;
   String title;
-  // String category;
   double amount;
+  int tag;
   bool income;
 }
 
@@ -26,8 +26,8 @@ class IncAdapter extends TypeAdapter<Inc> {
     return Inc(
       id: reader.readInt(),
       title: reader.readString(),
-      // category: reader.readString(),
       amount: reader.readDouble(),
+      tag: reader.readInt(),
       income: reader.readBool(),
     );
   }
@@ -36,8 +36,8 @@ class IncAdapter extends TypeAdapter<Inc> {
   void write(BinaryWriter writer, Inc obj) {
     writer.writeInt(obj.id);
     writer.writeString(obj.title);
-    // writer.writeString(obj.category);
     writer.writeDouble(obj.amount);
+    writer.writeInt(obj.tag);
     writer.writeBool(obj.income);
   }
 }

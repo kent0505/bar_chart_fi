@@ -19,11 +19,12 @@ class MainButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
       height: 50,
       width: width,
       decoration: BoxDecoration(
-        color: active ? Colors.greenAccent : Colors.redAccent,
+        color:
+            active ? Colors.greenAccent : Colors.black.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Button(
@@ -32,8 +33,9 @@ class MainButton extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color:
+                  active ? Colors.white : Colors.white.withValues(alpha: 0.5),
               fontSize: 16,
               fontFamily: 'w700',
             ),

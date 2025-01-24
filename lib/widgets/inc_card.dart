@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/inc/inc_bloc.dart';
+import '../core/utils.dart';
 import '../models/inc.dart';
+import '../pages/edit_inc_sheet.dart';
 import 'button.dart';
 
 class IncCard extends StatelessWidget {
@@ -13,7 +13,7 @@ class IncCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 54,
       margin: EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -21,14 +21,48 @@ class IncCard extends StatelessWidget {
       ),
       child: Button(
         onPressed: () {
-          context.read<IncBloc>().add(UpdateInc(inc: inc, delete: true));
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            builder: (context) {
+              return EditIncSheet();
+            },
+          );
+          // showDialog(
+          //   context: context,
+          //   builder: (context) {
+          //     return DialogWidget(
+          //       title: 'Delete?',
+          //       onYes: () {
+          //         context
+          //             .read<IncBloc>()
+          //             .add(UpdateInc(inc: inc, delete: true));
+          //       },
+          //     );
+          //   },
+          // );
         },
         child: Row(
           children: [
             SizedBox(width: 20),
+            Container(
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: getColor(inc.tag),
+              ),
+            ),
+            SizedBox(width: 20),
             Expanded(
               child: Text(
                 inc.title,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,
@@ -37,9 +71,9 @@ class IncCard extends StatelessWidget {
               ),
             ),
             Text(
-              '\$${inc.amount}',
+              inc.income ? '\$${inc.amount}' : '-\$${inc.amount}',
               style: TextStyle(
-                color: Colors.orangeAccent,
+                color: inc.income ? Colors.greenAccent : Colors.redAccent,
                 fontSize: 16,
                 fontFamily: 'w700',
               ),

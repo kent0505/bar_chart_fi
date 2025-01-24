@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/bottom/bottom_bloc.dart';
 import '../bloc/inc/inc_bloc.dart';
 import '../core/utils.dart';
+import '../widgets/balance_card.dart';
 import '../widgets/bottom.dart';
 import '../widgets/inc_card.dart';
 import '../widgets/loading.dart';
+import '../widgets/no_data.dart';
 import 'stats_page.dart';
 import 'add_inc_page.dart';
 
@@ -54,12 +56,28 @@ class _Home extends StatelessWidget {
     return BlocBuilder<IncBloc, IncState>(
       builder: (context, state) {
         if (state is IncLoaded) {
-          return ListView.builder(
-            padding: EdgeInsets.all(20).copyWith(bottom: 100, top: 50),
-            itemCount: state.incList.length,
-            itemBuilder: (context, index) {
-              return IncCard(inc: state.incList[index]);
-            },
+          return Stack(
+            children: [
+              BalanceCard(),
+              Container(
+                margin: EdgeInsets.only(top: 250),
+                decoration: BoxDecoration(
+                  color: Color(0xffF5F5F5),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                ),
+                child: state.incList.isEmpty
+                    ? NoData()
+                    : ListView.builder(
+                        padding: EdgeInsets.all(20).copyWith(bottom: 90),
+                        itemCount: state.incList.length,
+                        itemBuilder: (context, index) {
+                          return IncCard(inc: state.incList[index]);
+                        },
+                      ),
+              ),
+            ],
           );
         }
 

@@ -1,6 +1,8 @@
 import 'dart:developer' as developer;
+import 'dart:ui';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 
 import '../models/inc.dart';
 
@@ -26,10 +28,61 @@ Future<void> updateIncs() async {
   incList = await box.get('incs');
 }
 
-bool isToday(int timestamp) {
-  final date = DateTime.fromMillisecondsSinceEpoch(timestamp);
-  final now = DateTime.now();
-  return date.year == now.year &&
-      date.month == now.month &&
-      date.day == now.day;
+String getWeekday() {
+  return DateFormat('E').format(DateTime.now());
+}
+
+double getIncomes() {
+  return incList.fold(0, (amount, inc) {
+    return inc.income ? amount + inc.amount : amount + 0;
+  });
+}
+
+double getExpenses() {
+  return incList.fold(0, (amount, inc) {
+    return inc.income ? amount + 0 : amount + inc.amount;
+  });
+}
+
+double getTodayAmount(bool income) {
+  double incomes = 0;
+  double expenses = 0;
+  for (Inc inc in incList) {
+    final date = DateTime.fromMillisecondsSinceEpoch(inc.id * 1000);
+    final now = DateTime.now();
+    if (date.year == now.year &&
+        date.month == now.month &&
+        date.day == now.day) {
+      inc.income ? incomes += inc.amount : expenses += inc.amount;
+    }
+  }
+  return income ? incomes : expenses;
+}
+
+List<double> getCurrentWeekAmounts(bool income) {
+  // final now = DateTime.now();
+  // final startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+  List<double> weeklyAmounts = List.filled(7, 10);
+  // for (Inc inc in incList) {
+  //   final date = DateTime.fromMillisecondsSinceEpoch(inc.id * 1000);
+  //   if (date.isAfter(startOfWeek.subtract(const Duration(days: 1))) &&
+  //       date.isBefore(startOfWeek.add(Duration(days: 7))) &&
+  //       inc.income == income) {
+  //     int dayIndex = date.difference(startOfWeek).inDays;
+  //     weeklyAmounts[dayIndex] += inc.amount;
+  //   }
+  // }
+  return weeklyAmounts;
+}
+
+Color getColor(int id) {
+  if (id == 1) return Color(0xff9b5de5);
+  if (id == 2) return Color(0xfff15bb5);
+  if (id == 3) return Color(0xfffee440);
+  if (id == 4) return Color(0xff00bbf9);
+  if (id == 5) return Color(0xff00f5d4);
+  if (id == 6) return Color(0xffe71d36);
+  if (id == 7) return Color(0xffff9f1c);
+  if (id == 8) return Color(0xffe26d5c);
+  return Color(0xffff99c8);
 }

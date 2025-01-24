@@ -6,6 +6,7 @@ import '../bloc/inc/inc_bloc.dart';
 import '../models/inc.dart';
 import '../widgets/field_widget.dart';
 import '../widgets/main_button.dart';
+import '../widgets/tag.dart';
 
 class AddIncPage extends StatefulWidget {
   const AddIncPage({super.key, required this.income});
@@ -19,16 +20,25 @@ class AddIncPage extends StatefulWidget {
 class _AddIncPageState extends State<AddIncPage> {
   final controller1 = TextEditingController();
   final controller2 = TextEditingController();
+  int tag = 0;
 
   void onChanged() {
     setState(() {});
   }
 
+  void onTag(int id) {
+    setState(() {
+      id == tag ? tag = 0 : tag = id;
+    });
+  }
+
   void onAdd() {
     final inc = Inc(
-      id: DateTime.now().millisecondsSinceEpoch ~/ 1000 - 86400,
+      // id: DateTime.now().millisecondsSinceEpoch ~/ 1000 - 86400,
+      id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
       title: controller1.text,
       amount: double.tryParse(controller2.text) ?? 0,
+      tag: tag,
       income: widget.income,
     );
     context.read<IncBloc>().add(UpdateInc(inc: inc, add: true));
@@ -72,9 +82,35 @@ class _AddIncPageState extends State<AddIncPage> {
           onChanged: onChanged,
         ),
         SizedBox(height: 20),
+        Text(
+          'Tags',
+          style: TextStyle(
+            color: Colors.black.withValues(alpha: 0.3),
+            fontSize: 18,
+            fontFamily: 'w600',
+          ),
+        ),
+        SizedBox(height: 20),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            Tag(id: 1, tag: tag, onPressed: onTag),
+            Tag(id: 2, tag: tag, onPressed: onTag),
+            Tag(id: 3, tag: tag, onPressed: onTag),
+            Tag(id: 4, tag: tag, onPressed: onTag),
+            Tag(id: 5, tag: tag, onPressed: onTag),
+            Tag(id: 6, tag: tag, onPressed: onTag),
+            Tag(id: 7, tag: tag, onPressed: onTag),
+            Tag(id: 8, tag: tag, onPressed: onTag),
+          ],
+        ),
+        SizedBox(height: 20),
         MainButton(
           title: 'Add',
-          active: controller1.text.isNotEmpty && controller2.text.isNotEmpty,
+          active: controller1.text.isNotEmpty &&
+              controller2.text.isNotEmpty &&
+              tag != 0,
           onPressed: onAdd,
         ),
       ],

@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          scaffoldBackgroundColor: Color(0xffF5F5F5),
           colorScheme: ColorScheme.fromSwatch(
             accentColor: Colors.greenAccent,
           ),
