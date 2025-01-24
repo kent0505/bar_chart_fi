@@ -9,6 +9,7 @@ import '../widgets/bottom.dart';
 import '../widgets/inc_card.dart';
 import '../widgets/loading.dart';
 import '../widgets/no_data.dart';
+import '../widgets/sort.dart';
 import 'stats_page.dart';
 import 'add_inc_page.dart';
 
@@ -67,20 +68,25 @@ class _Home extends StatelessWidget {
                     top: Radius.circular(20),
                   ),
                 ),
-                child: state.incList.isEmpty
-                    ? NoData()
-                    : ClipRRect(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20),
-                        ),
-                        child: ListView.builder(
-                          padding: EdgeInsets.all(20).copyWith(bottom: 90),
-                          itemCount: state.incList.length,
-                          itemBuilder: (context, index) {
-                            return IncCard(inc: state.incList[index]);
-                          },
-                        ),
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
                       ),
+                      child: ListView.builder(
+                        padding: EdgeInsets.all(20).copyWith(bottom: 90),
+                        itemCount: state.incList.length + 1,
+                        itemBuilder: (context, index) {
+                          return index == 0
+                              ? Sort()
+                              : IncCard(inc: state.incList[index - 1]);
+                        },
+                      ),
+                    ),
+                    if (state.incList.isEmpty) NoData()
+                  ],
+                ),
               ),
             ],
           );

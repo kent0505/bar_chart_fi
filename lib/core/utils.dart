@@ -8,6 +8,7 @@ import '../models/inc.dart';
 void logger(Object message) => developer.log(message.toString());
 
 List<Inc> incList = [];
+int tag = 0;
 
 Future<void> initHive() async {
   await Hive.initFlutter();

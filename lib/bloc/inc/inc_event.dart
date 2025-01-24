@@ -18,3 +18,9 @@ class UpdateInc extends IncEvent {
   final bool edit;
   final bool delete;
 }
+
+class SortInc extends IncEvent {
+  SortInc({required this.tag});
+
+  final int tag;
+}

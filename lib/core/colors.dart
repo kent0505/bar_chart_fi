@@ -9,7 +9,7 @@ Color getColor(int id) {
   if (id == 6) return Color(0xffe71d36);
   if (id == 7) return Color(0xffff9f1c);
   if (id == 8) return Color(0xffe26d5c);
-  return Color(0xffff99c8);
+  return Color(0xffffffff);
 }
 
 Color mainColor = Color(0xff74c69d);
