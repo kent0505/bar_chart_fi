@@ -69,12 +69,17 @@ class _Home extends StatelessWidget {
                 ),
                 child: state.incList.isEmpty
                     ? NoData()
-                    : ListView.builder(
-                        padding: EdgeInsets.all(20).copyWith(bottom: 90),
-                        itemCount: state.incList.length,
-                        itemBuilder: (context, index) {
-                          return IncCard(inc: state.incList[index]);
-                        },
+                    : ClipRRect(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
+                        child: ListView.builder(
+                          padding: EdgeInsets.all(20).copyWith(bottom: 90),
+                          itemCount: state.incList.length,
+                          itemBuilder: (context, index) {
+                            return IncCard(inc: state.incList[index]);
+                          },
+                        ),
                       ),
               ),
             ],

@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: Color(0xffF5F5F5),
           colorScheme: ColorScheme.fromSwatch(
-            accentColor: Colors.greenAccent,
+            accentColor: Color(0xff43aa8b),
           ),
           useMaterial3: false,
         ),

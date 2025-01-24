@@ -8,12 +8,14 @@ class MainButton extends StatelessWidget {
     required this.title,
     this.width,
     this.active = true,
+    this.color = const Color(0xff43aa8b),
     required this.onPressed,
   });
 
   final String title;
   final double? width;
   final bool active;
+  final Color color;
   final void Function() onPressed;
 
   @override
@@ -23,8 +25,7 @@ class MainButton extends StatelessWidget {
       height: 50,
       width: width,
       decoration: BoxDecoration(
-        color:
-            active ? Colors.greenAccent : Colors.black.withValues(alpha: 0.3),
+        color: active ? color : Colors.black.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Button(
@@ -36,7 +37,7 @@ class MainButton extends StatelessWidget {
             style: TextStyle(
               color:
                   active ? Colors.white : Colors.white.withValues(alpha: 0.5),
-              fontSize: 16,
+              fontSize: 18,
               fontFamily: 'w700',
             ),
           ),

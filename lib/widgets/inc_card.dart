@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/utils.dart';
+import '../core/colors.dart';
 import '../models/inc.dart';
 import '../pages/edit_inc_sheet.dart';
 import 'button.dart';
@@ -30,22 +30,9 @@ class IncCard extends StatelessWidget {
               ),
             ),
             builder: (context) {
-              return EditIncSheet();
+              return EditIncSheet(inc: inc);
             },
           );
-          // showDialog(
-          //   context: context,
-          //   builder: (context) {
-          //     return DialogWidget(
-          //       title: 'Delete?',
-          //       onYes: () {
-          //         context
-          //             .read<IncBloc>()
-          //             .add(UpdateInc(inc: inc, delete: true));
-          //       },
-          //     );
-          //   },
-          // );
         },
         child: Row(
           children: [
@@ -70,10 +57,11 @@ class IncCard extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(width: 10),
             Text(
               inc.income ? '\$${inc.amount}' : '-\$${inc.amount}',
               style: TextStyle(
-                color: inc.income ? Colors.greenAccent : Colors.redAccent,
+                color: inc.income ? mainColor : redColor,
                 fontSize: 16,
                 fontFamily: 'w700',
               ),

@@ -28,9 +28,8 @@ class IncBloc extends Bloc<IncEvent, IncState> {
       } else if (event.edit) {
         final inc = incList.firstWhere((element) => element.id == event.inc.id);
         inc.title = event.inc.title;
-        // inc.category = event.inc.category;
         inc.amount = event.inc.amount;
-        inc.income = event.inc.income;
+        inc.tag = event.inc.tag;
       } else if (event.delete) {
         incList.removeWhere((element) => element.id == event.inc.id);
       }

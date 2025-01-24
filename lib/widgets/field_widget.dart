@@ -26,7 +26,6 @@ class FieldWidget extends StatelessWidget {
                 ? 7
                 : 6
             : 20),
-        // if (number) FilteringTextInputFormatter.digitsOnly,
         if (number) ...[
           FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
           DecimalPointInputFormatter(),
@@ -47,7 +46,7 @@ class FieldWidget extends StatelessWidget {
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.greenAccent,
+            color: Color(0xff43aa8b),
             width: 2,
           ),
         ),

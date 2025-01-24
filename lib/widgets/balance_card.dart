@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../core/colors.dart';
 import '../core/utils.dart';
 
 class BalanceCard extends StatelessWidget {
@@ -8,9 +9,9 @@ class BalanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
+      height: 300,
       width: double.infinity,
-      color: Colors.greenAccent,
+      color: mainColor,
       child: Row(
         children: [
           SizedBox(width: 50),
@@ -18,11 +19,11 @@ class BalanceCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 120),
+                Spacer(),
                 Text(
                   'Balance',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 20,
                     fontFamily: 'w700',
                   ),
@@ -31,11 +32,12 @@ class BalanceCard extends StatelessWidget {
                 Text(
                   '\$${getIncomes() - getExpenses()}',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 40,
                     fontFamily: 'w800',
                   ),
                 ),
+                SizedBox(height: 120),
               ],
             ),
           ),
@@ -64,7 +66,7 @@ class BalanceCard extends StatelessWidget {
                     width: 20,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.redAccent,
+                      color: redColor,
                     ),
                   ),
                   SizedBox(width: 20),
@@ -90,7 +92,7 @@ class _Amount extends StatelessWidget {
     return Text(
       '\$$amount',
       style: TextStyle(
-        color: Colors.black,
+        color: Colors.white,
         fontSize: 16,
         fontFamily: 'w700',
       ),

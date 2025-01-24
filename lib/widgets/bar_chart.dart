@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../core/colors.dart';
+
 class BarChart extends StatefulWidget {
   const BarChart({
     super.key,
@@ -74,11 +76,11 @@ class _BarChartState extends State<BarChart> {
                       children: [
                         _Bar(
                           height: value[index],
-                          color: Colors.greenAccent,
+                          color: mainColor,
                         ),
                         _Bar(
                           height: value[index + widget.values2.length],
-                          color: Colors.redAccent,
+                          color: redColor,
                         ),
                       ],
                     );

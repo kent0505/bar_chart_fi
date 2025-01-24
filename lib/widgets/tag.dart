@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/utils.dart';
+import '../core/colors.dart';
 import 'button.dart';
 
 class Tag extends StatelessWidget {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/bottom/bottom_bloc.dart';
+import '../core/colors.dart';
 import 'button.dart';
 
 class Bottom extends StatelessWidget {
@@ -20,7 +21,7 @@ class Bottom extends StatelessWidget {
           right: 20,
         ),
         decoration: BoxDecoration(
-          color: Colors.greenAccent,
+          color: mainColor,
           borderRadius: BorderRadius.circular(20),
         ),
         child: BlocBuilder<BottomBloc, BottomState>(
