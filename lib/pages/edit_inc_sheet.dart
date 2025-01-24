@@ -23,15 +23,19 @@ class _EditIncSheetState extends State<EditIncSheet> {
   final controller1 = TextEditingController();
   final controller2 = TextEditingController();
   int tag = 0;
+  bool active = true;
 
   void onChanged() {
-    setState(() {});
+    setState(() {
+      active = controller1.text.isNotEmpty &&
+          controller2.text.isNotEmpty &&
+          tag != 0;
+    });
   }
 
   void onTag(int id) {
-    setState(() {
-      id == tag ? tag = 0 : tag = id;
-    });
+    id == tag ? tag = 0 : tag = id;
+    onChanged();
   }
 
   void onEdit() {
@@ -139,9 +143,7 @@ class _EditIncSheetState extends State<EditIncSheet> {
                 SizedBox(height: 20),
                 MainButton(
                   title: 'Edit',
-                  active: controller1.text.isNotEmpty &&
-                      controller2.text.isNotEmpty &&
-                      tag != 0,
+                  active: active,
                   onPressed: onEdit,
                 ),
                 SizedBox(height: 20),

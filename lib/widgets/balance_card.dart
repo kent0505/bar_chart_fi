@@ -42,6 +42,7 @@ class BalanceCard extends StatelessWidget {
             ),
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 130),
               Row(

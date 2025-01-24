@@ -8,7 +8,7 @@ class MainButton extends StatelessWidget {
     required this.title,
     this.width,
     this.active = true,
-    this.color = const Color(0xff43aa8b),
+    this.color = const Color(0xff74c69d),
     required this.onPressed,
   });
 

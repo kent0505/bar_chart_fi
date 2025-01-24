@@ -12,5 +12,5 @@ Color getColor(int id) {
   return Color(0xffff99c8);
 }
 
-Color mainColor = Color(0xff43aa8b);
+Color mainColor = Color(0xff74c69d);
 Color redColor = Color(0xfff94144);

@@ -21,20 +21,24 @@ class _AddIncPageState extends State<AddIncPage> {
   final controller1 = TextEditingController();
   final controller2 = TextEditingController();
   int tag = 0;
+  bool active = false;
 
   void onChanged() {
-    setState(() {});
+    setState(() {
+      active = controller1.text.isNotEmpty &&
+          controller2.text.isNotEmpty &&
+          tag != 0;
+    });
   }
 
   void onTag(int id) {
-    setState(() {
-      id == tag ? tag = 0 : tag = id;
-    });
+    id == tag ? tag = 0 : tag = id;
+    onChanged();
   }
 
   void onAdd() {
     final inc = Inc(
-      // id: DateTime.now().millisecondsSinceEpoch ~/ 1000 - 86400,
+      // id: DateTime.now().millisecondsSinceEpoch ~/ 1000 - (86400 * 7),
       id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
       title: controller1.text,
       amount: double.tryParse(controller2.text) ?? 0,
@@ -108,9 +112,7 @@ class _AddIncPageState extends State<AddIncPage> {
         SizedBox(height: 20),
         MainButton(
           title: 'Add',
-          active: controller1.text.isNotEmpty &&
-              controller2.text.isNotEmpty &&
-              tag != 0,
+          active: active,
           onPressed: onAdd,
         ),
       ],

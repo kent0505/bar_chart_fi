@@ -59,17 +59,44 @@ double getTodayAmount(bool income) {
 }
 
 List<double> getCurrentWeekAmounts(bool income) {
-  // final now = DateTime.now();
-  // final startOfWeek = now.subtract(Duration(days: now.weekday - 1));
-  List<double> weeklyAmounts = List.filled(7, 10);
-  // for (Inc inc in incList) {
-  //   final date = DateTime.fromMillisecondsSinceEpoch(inc.id * 1000);
-  //   if (date.isAfter(startOfWeek.subtract(const Duration(days: 1))) &&
-  //       date.isBefore(startOfWeek.add(Duration(days: 7))) &&
-  //       inc.income == income) {
-  //     int dayIndex = date.difference(startOfWeek).inDays;
-  //     weeklyAmounts[dayIndex] += inc.amount;
-  //   }
-  // }
+  DateTime now = DateTime.now();
+  DateTime monday = now.subtract(Duration(days: now.weekday - 1));
+  DateTime nextMonday = monday.add(Duration(days: 7));
+  List<Inc> models = incList.where((model) {
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(model.id * 1000);
+    return date.isAfter(monday) && date.isBefore(nextMonday);
+  }).toList();
+  List<double> incomeAmounts = List.generate(7, (_) => 0.0);
+  List<double> expenseAmounts = List.generate(7, (_) => 0.0);
+  for (Inc model in models) {
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(model.id * 1000);
+    int weekdayIndex = date.weekday - 1;
+    model.income
+        ? incomeAmounts[weekdayIndex] += model.amount
+        : expenseAmounts[weekdayIndex] += model.amount;
+  }
+  return income ? incomeAmounts : expenseAmounts;
+}
+
+List<double> getCurrentMonthAmounts(bool income) {
+  DateTime now = DateTime.now();
+  DateTime firstDayOfMonth = DateTime(now.year, now.month, 1);
+  DateTime startOfFirstWeek = firstDayOfMonth.subtract(
+    Duration(days: firstDayOfMonth.weekday - 1),
+  );
+  List<double> weeklyAmounts = List.generate(4, (_) => 0.0);
+  List<Inc> models = incList.where((model) {
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(model.id * 1000);
+    return date.year == now.year && date.month == now.month;
+  }).toList();
+  for (Inc model in models) {
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(model.id * 1000);
+    int weekIndex = ((date.difference(startOfFirstWeek).inDays) / 7).floor();
+    if (weekIndex >= 0 && weekIndex < 4) {
+      if (model.income == income) {
+        weeklyAmounts[weekIndex] += model.amount;
+      }
+    }
+  }
   return weeklyAmounts;
 }
